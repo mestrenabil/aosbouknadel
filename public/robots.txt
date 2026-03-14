@@ -1,0 +1,24 @@
+# Robots.txt for AOS Sidi Bouknadel
+# https://aos-bouknadel.dabahelp.com
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://aos-bouknadel.dabahelp.com/sitemap.xml
+
+# Disallow admin pages from search engines
+Disallow: /admin
+Disallow: /api/
