@@ -9,8 +9,7 @@ set PROJECT_NAME=aosbouknadel
 set DOMAIN=aosbouknadel.dabahelp.com
 set PORT=3000
 set BRANCH=main
-set GITHUB_REPO=git@github.com:mestrenabil/aosbouknadel.git
-
+set GITHUB_REPO=https://github.com/mestrenabil/aosbouknadel.git
 echo.
 echo ===== STEP 1 : GIT PUSH =====
 
