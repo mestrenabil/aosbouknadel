@@ -7,7 +7,7 @@ echo ===============================
 set SERVER_IP=173.249.8.125
 set PROJECT_NAME=aosbouknadel
 set DOMAIN=aosbouknadel.dabahelp.com
-set PORT=3001
+set PORT=3000
 set BRANCH=main
 set GITHUB_REPO=git@github.com:mestrenabil/aosbouknadel.git
 
@@ -33,7 +33,7 @@ fi && \
 npm install && \
 npm run build && \
 pm2 delete aosbouknadel || true && \
-PORT=3001 pm2 start npm --name aosbouknadel -- start && \
+PORT=3000 pm2 start npm --name aosbouknadel -- start && \
 pm2 save"
 
 echo.
@@ -45,7 +45,7 @@ listen 80;
 server_name aosbouknadel.dabahelp.com www.aosbouknadel.dabahelp.com;
 
 location / {
-proxy_pass http://127.0.0.1:3001;
+proxy_pass http://127.0.0.1:3000;
 proxy_http_version 1.1;
 proxy_set_header Upgrade \$http_upgrade;
 proxy_set_header Connection keep-alive;
