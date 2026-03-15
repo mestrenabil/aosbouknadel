@@ -9,24 +9,26 @@ set PROJECT_NAME=aosbouknadel
 set DOMAIN=aosbouknadel.dabahelp.com
 set PORT=3001
 set BRANCH=main
+set GITHUB_REPO=git@github.com:mestrenabil/aosbouknadel.git
 
 echo.
-echo ====== GIT PUSH ======
+echo ===== STEP 1 : GIT PUSH =====
+
 git add .
-set /p msg=Commit message: 
+set /p msg=Commit message:
 git commit -m "%msg%"
-git push origin main
+git push origin %BRANCH%
 
 echo.
-echo ====== VPS DEPLOY ======
+echo ===== STEP 2 : VPS DEPLOY =====
 
 ssh root@173.249.8.125 ^
 "mkdir -p /var/www/aosbouknadel && \
 cd /var/www/aosbouknadel && \
 if [ ! -d .git ]; then \
-git clone https://github.com/mestrenabil/aosbouknadel.git . ; \
+git clone GITHUB_REPO=git@github.com:mestrenabil/aosbouknadel.git . ; \
 else \
-git pull origin main ; \
+git pull origin %BRANCH% ; \
 fi && \
 npm install && \
 npm run build && \
@@ -35,7 +37,7 @@ PORT=3001 pm2 start npm --name aosbouknadel -- start && \
 pm2 save"
 
 echo.
-echo ====== NGINX CONFIG ======
+echo ===== STEP 3 : CREATE NGINX CONFIG =====
 
 ssh root@173.249.8.125 ^
 "echo 'server {
@@ -52,14 +54,28 @@ proxy_cache_bypass \$http_upgrade;
 }
 }' > /etc/nginx/sites-available/aosbouknadel"
 
+echo.
+echo ===== STEP 4 : ENABLE SITE =====
+
 ssh root@173.249.8.125 ^
 "ln -sf /etc/nginx/sites-available/aosbouknadel /etc/nginx/sites-enabled/aosbouknadel && \
 nginx -t && \
 systemctl restart nginx"
 
 echo.
-echo ===============================
-echo      WEBSITE DEPLOYED
-echo ===============================
+echo ===== STEP 5 : INSTALL SSL =====
+
+ssh root@173.249.8.125 ^
+"apt install certbot python3-certbot-nginx -y && \
+certbot --nginx -d aosbouknadel.dabahelp.com -d www.aosbouknadel.dabahelp.com --non-interactive --agree-tos -m admin@aosbouknadel.dabahelp.com"
+
+echo.
+echo ==========================================
+echo           WEBSITE DEPLOYED
+echo ==========================================
+
+echo.
+echo Your website:
+echo https://aosbouknadel.dabahelp.com
 
 pause
