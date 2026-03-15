@@ -26,7 +26,7 @@ ssh root@173.249.8.125 ^
 "mkdir -p /var/www/aosbouknadel && \
 cd /var/www/aosbouknadel && \
 if [ ! -d .git ]; then \
-git clone GITHUB_REPO=git@github.com:mestrenabil/aosbouknadel.git . ; \
+git clone git@github.com:mestrenabil/aosbouknadel.git . ; \
 else \
 git pull origin %BRANCH% ; \
 fi && \
