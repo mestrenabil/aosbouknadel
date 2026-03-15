@@ -5,8 +5,8 @@ echo        DEVOPS AUTO DEPLOY
 echo ===============================
 
 set SERVER_IP=173.249.8.125
-set PROJECT_NAME=project
-set DOMAIN=aos-bouknadeldabahelp.com
+set PROJECT_NAME=aosbouknadel
+set DOMAIN=aosbouknadel.dabahelp.com
 set PORT=3001
 set BRANCH=main
 
@@ -14,7 +14,7 @@ echo.
 echo ====== GIT PUSH ======
 git add .
 set /p msg=Commit message: 
-git commit -m "update homepage"
+git commit -m "%msg%"
 git push origin main
 
 echo.
@@ -40,7 +40,7 @@ echo ====== NGINX CONFIG ======
 ssh root@173.249.8.125 ^
 "echo 'server {
 listen 80;
-server_name aosbouknadel www.aosbouknadel.dabahelp.com;
+server_name aosbouknadel.dabahelp.com www.aosbouknadel.dabahelp.com;
 
 location / {
 proxy_pass http://127.0.0.1:3001;
